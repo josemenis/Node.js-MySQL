@@ -19,30 +19,35 @@ var connection = mysql.createConnection({
 // connect to the mysql server and sql database
 connection.connect(function (err) {
   if (err) throw err
-  // run the start function after the connection is made to prompt the user
+  // run the start function after the connection is made to display products
   start()
 })
 
-function start () {
-    inquirer
-      .prompt({
-        name: 'postOrBid',
-        type: 'list',
-        message: 'Would you like to [POST] an auction or [BID] on an auction?',
-        choices: ['POST', 'BID', 'EXIT']
-      })
-      .then(function (answer) {
-        // based on their answer, either call the bid or the post functions
-        if (answer.postOrBid === 'POST') {
-          postAuction()
-        } else if (answer.postOrBid === 'BID') {
-          bidAuction()
-        } else {
-          connection.end()
-        }
-      })
+function start() {
+  // This connection.query will select all products from the db and display through console log.
+  connection.query('SELECT * FROM products', function (err, res) {
+    if (err) throw err
+    console.log(res)
+    prompt()
   }
+  )}
 
+  // function to prompt to ask user
+  function prompt() {
+  inquirer
+    .prompt({
+      name: 'SKU',
+      type: 'list',
+      message: 'What is the SKU of the product that you would like to buy?',
+      // this validate function will ensure that the user can only input a number
+      validate: function (value) {
+        if (isNaN(value) === false) {
+          return true
+        }
+        return false
+      }
+    })
+  }
 //   5. Then create a Node application called `bamazonCustomer.js`. Running this application will first display all of the items available for sale. Include the skus, names, and prices of products for sale.
 
 //   6. The app should then prompt users with two messages.
