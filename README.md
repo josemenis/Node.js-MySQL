@@ -28,7 +28,7 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
 
 5. Then create a Node application called `bamazonCustomer.js`. Running this application will first display all of the items available for sale. Include the skus, names, and prices of products for sale.
 
-  ![Display Items for sale](images/bamazon_displayAllitems.JPG)
+  ![Display Items for sale](images/bamazon_custDisplay.JPG)
 6. The app should then prompt users with two messages.
 
    * The first should ask them the SKU of the product they would like to buy.
@@ -48,10 +48,6 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
   ![Insufficient quantity!](images/bamazon_insuffQuantity.JPG) 
 
 
-
-
-
-
 ### Challenge #2: Manager View (Next Level)
 
 * Create a new Node application called `bamazonManager.js`. Running this application will:
@@ -60,6 +56,7 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
 
     * View Products for Sale
     console log each + concatenate
+    ![Display Items for sale](images/bamazon_displayAllitems.JPG)
 
     * View Low Inventory
     if statement quantity <5, run a loop

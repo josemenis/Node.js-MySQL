@@ -34,9 +34,7 @@ function displayItem () {[
                 console.log('/////////////////////////////////'),
                 console.log(`Sku # = ${res[i].sku}`),
                 console.log(`Product = ${res[i].product_name}`),
-                console.log(`Price = $ ${res[i].price}`),
-                console.log(`Department = ${res[i].department_name}`),
-                console.log(`Quantity = ${res[i].stock_quantity}`)
+                console.log(`Price = $ ${res[i].price}`)
               ];
               displayArray.push(inventoryItem)
             }
