@@ -24,17 +24,17 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
 
 4. Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
 
-  ![DB](images\bamazon_db.JPG) 
+  ![DB](images/bamazon_db.JPG) 
 
 5. Then create a Node application called `bamazonCustomer.js`. Running this application will first display all of the items available for sale. Include the skus, names, and prices of products for sale.
 
-  ![Display Items for sale](images\bamazon_sku.JPG)
+  ![Display Items for sale](images/bamazon_sku.JPG)
 6. The app should then prompt users with two messages.
 
    * The first should ask them the SKU of the product they would like to buy.
    * The second message should ask how many units of the product they would like to buy.
 
-  ![Order within quantity per DB](images\bamazon_orderSuccessful.JPG) 
+  ![Order within quantity per DB](images/bamazon_orderSuccessful.JPG) 
 
 7. Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
 
@@ -44,7 +44,7 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
    * This means updating the SQL database to reflect the remaining quantity.
    * Once the update goes through, show the customer the total cost of their purchase.
 
-  ![Insufficient quantity!](images\bamazon_insuffQuantity.JPG) 
+  ![Insufficient quantity!](images/bamazon_insuffQuantity.JPG) 
 
 
 
