@@ -20,6 +20,7 @@ CREATE TABLE products(
   PRIMARY KEY (sku)
 );
 
+-- for loops are looping through these objects
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('Milk', 'Dairy', 3.18, 10);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('Cookie', 'Bakery', 1.29, 15);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('Butter', 'Dairy', 3.48, 5);
