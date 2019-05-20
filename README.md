@@ -28,7 +28,7 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
 
 5. Then create a Node application called `bamazonCustomer.js`. Running this application will first display all of the items available for sale. Include the skus, names, and prices of products for sale.
 
-  ![Display Items for sale](images/bamazon_sku.JPG)
+  ![Display Items for sale](images/bamazon_displayAllitems.JPG)
 6. The app should then prompt users with two messages.
 
    * The first should ask them the SKU of the product they would like to buy.
