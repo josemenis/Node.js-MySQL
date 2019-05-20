@@ -88,6 +88,8 @@ function start() {
           // console.log(remainingStock)
           connection.query(
 
+            // 8. However, if your store _does_ have enough of the product, you should fulfill the customer's order.
+            //    * This means updating the SQL database to reflect the remaining quantity.
             'UPDATE products Set ? WHERE ?',
             // 1 object per question mark
             [
@@ -100,29 +102,23 @@ function start() {
               }
             ]
           )
+          //    * Once the update goes through, show the customer the total cost of their purchase.
           var totalPrice = parseInt(answer.units) * chosenItem.price
           console.log(`Your total is ${totalPrice}`)
           console.log('Thanks for shopping!')
-          
-          // method that comes with mySQL, method is a function that belongs to a object.
-          connection.end ()
+
+          // method that comes with mySQL, method is a function that belongs to a object. 
+          // end connection so user is not left hanging
+          connection.end()
 
         } else {
-          console.log("Sorry not enough stock'")
+          //    * If not, the app should log a phrase like `Insufficient quantity!`, and then prevent the order from going through.
+          console.log("Insufficient quantity!")
           start()
         }
       })
   }
   )
 };
-
-
-//    * If not, the app should log a phrase like `Insufficient quantity!`, and then prevent the order from going through.
-
-// 8. However, if your store _does_ have enough of the product, you should fulfill the customer's order.
-//    * This means updating the SQL database to reflect the remaining quantity.
-//    * Once the update goes through, show the customer the total cost of their purchase.
-
-// - - -
 
 // * If this activity took you between 8-10 hours, then you've put enough time into this assignment. Feel free to stop here -- unless you want to take on the next challenge.
