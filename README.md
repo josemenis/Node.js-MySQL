@@ -28,7 +28,6 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
 
 5. Then create a Node application called `bamazonCustomer.js`. Running this application will first display all of the items available for sale. Include the skus, names, and prices of products for sale.
 
-  ![Display Items for sale](images/bamazon_custDisplay.JPG)
 6. The app should then prompt users with two messages.
 
    * The first should ask them the SKU of the product they would like to buy.
@@ -53,16 +52,9 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
 * Create a new Node application called `bamazonManager.js`. Running this application will:
 
   * List a set of menu options:
-
     * View Products for Sale
-    console log each + concatenate
-    ![Display Items for sale](images/bamazon_displayAllitems.JPG)
-
     * View Low Inventory
-    if statement quantity <5, run a loop
-
     * Add to Inventory
-
     * Add New Product
 
   * If a manager selects `View Products for Sale`, the app should list every available item: the item SKUs, names, prices, and quantities.
@@ -70,7 +62,11 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
   * If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
 
   * If a manager selects `Add to Inventory`, your app should display a prompt that will let the manager "add more" of any item currently in the store.
+![3 functions complete except for new product](images/bamazon_manager.JPG)
 
+
+5/20/19
+Still working on `Add New Product` function.
   * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
 
 - - -
