@@ -17,6 +17,13 @@ var connection = mysql.createConnection({
     database: 'bamazon_DB'
 });
 
+// ### Challenge #2: Manager View (Next Level)
+
+// * Create a new Node application called `bamazonManager.js`. Running this application will:
+
+//   * List a set of menu options:
+let dataBase = ['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product']
+
 // connect to the mysql server and sql database
 connection.connect(function (err) {
     if (err) throw err
@@ -26,33 +33,26 @@ connection.connect(function (err) {
     inquirer
         .prompt([{
             /* Pass your questions in here */
-            name: 'command',
+            name: 'userInput',
             message: 'What would you like to do?',
             type: 'list',
-            choices: menuItems
+            choices: dataBase
         }])
         .then(answers => {
             // Use user feedback for... whatever!!
             // console.log(answers)
-            // .command is what works for pulling answer complete if statement
-            if (answers.command === menuItems[0]) {
+            // <name> or .userInput is what works for pulling answer complete if statement
+            if (answers.userInput === dataBase[0]) {
                 productsForSale()
-            } else if (answers.command === menuItems[1]) {
+            } else if (answers.userInput === dataBase[1]) {
                 lowInventory()
-            } else if (answers === menuItems[2]) {
+            } else if (answers.userInput === dataBase[2]) {
                 updateInventory()
-            } else if (answers === menuItems[3]) {
+            } else if (answers.userInput === dataBase[3]) {
                 addNewProduct()
             }
         });
 });
-
-// ### Challenge #2: Manager View (Next Level)
-
-// * Create a new Node application called `bamazonManager.js`. Running this application will:
-
-//   * List a set of menu options:
-let menuItems = ['View Products for Sale', 'View Low Inventory', 'Update Inventory', 'Add New Product']
 
 //     * View Products for Sale
 function productsForSale() {
@@ -83,8 +83,6 @@ function productsForSale() {
         })
     ]
 };
-
-
 //     * View Low Inventory
 function lowInventory() {
     [
@@ -117,11 +115,96 @@ function lowInventory() {
         })
     ]
 };
-//     if statement quantity <5, run a loop
-
 //     * Add to Inventory
+function updateInventory() {
+    connection.query('SELECT * FROM products', function (err, res) {
+        if (err) throw err
+        // console.log(res)
+        inquirer
+            .prompt([
+                {
+                    name: 'choice',
+                    type: 'rawlist',
+                    choices: function () {
+                        // create an empty array
+                        var choiceArray = []
+                        for (var i = 0; i < res.length; i++) {
+                            // pushes items into choicesArray
+                            choiceArray.push(res[i].product_name)
+                        }
+                        return choiceArray
+                    },
+                    message: 'What is the SKU of the product?',
+                    // this validate function will ensure that the user can only input a number
+                    validate: function (value) {
+                        if (isNaN(value) === false) {
+                            return true
+                        }
+                        return false
+                    }
+                },
+                {
+                    name: 'units',
+                    type: 'input',
+                    message: 'How many units will be added?',
+                    // this validate function will ensure that the user can only input a number
+                    validate: function (value) {
+                        if (isNaN(value) === false) {
+                            return true
+                        }
+                        return false
+                    }
+                }
+            ])
+            // asynchronous takes a while
+            .then(function (answer) {
+                console.log(answer)
+                // get the information of the chosen item
+                var chosenItem
+                for (var i = 0; i < res.length; i++) {
+                    // console log below code to understand what objects are looping through, res [i] picks one at a time
+                    // console.log("/////////////////////////////////////////")
+                    // console.log(res[i])
+                    if (res[i].product_name === answer.choice) {
+                        chosenItem = res[i]
+                    }
+                }
+                // console.log(chosenItem.stock_quantity)
+                // console.log(parseInt(answer.units))
+                var addedStock = chosenItem.stock_quantity + parseInt(answer.units)
+                // console.log(addedStock)
+                connection.query(
 
+                    // 8. However, if your store _does_ have enough of the product, you should fulfill the customer's order.
+                    //    * This means updating the SQL database to reflect the remaining quantity.
+                    'UPDATE products Set ? WHERE ?',
+                    // 1 object per question mark
+                    [
+                        {
+                            // column name for this instance it is the key : variable
+                            stock_quantity: addedStock
+                        },
+                        {
+                            product_name: chosenItem.product_name
+                        }
+                    ]
+                )
+                //    * Once the update goes through, show the customer the total cost of their purchase.
+                //   var totalPrice = parseInt(answer.units) * chosenItem.price
+                //   console.log(`Your total is ${totalPrice}`)
+                console.log('Thanks for adding!')
+
+                // method that comes with mySQL, method is a function that belongs to a object. 
+                // end connection so user is not left hanging
+                connection.end()
+            })
+    }
+    )
+};
 //     * Add New Product
+function addNewProduct() {
+
+};
 
 //   * If a manager selects `View Products for Sale`, the app should list every available item: the item SKUs, names, prices, and quantities.
 
