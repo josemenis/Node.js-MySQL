@@ -38,6 +38,7 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
    * Once the update goes through, show the customer the total cost of their purchase.
    
   ![Order within quantity per DB](images/bamazon_orderSuccessful.JPG) 
+  ![Order within quantity per DB](images/bamazon_orderSuccessfultwo.JPG) 
 
 8. Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
 
