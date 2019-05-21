@@ -34,9 +34,10 @@ connection.connect(function (err) {
         .then(answers => {
             // Use user feedback for... whatever!!
             // console.log(answers)
-            if (answers === menuItems[0]) {
+            // .command is what works for pulling answer complete if statement
+            if (answers.command === menuItems[0]) {
                 productsForSale()
-            } else if (answers === menuItems[1]) {
+            } else if (answers.command === menuItems[1]) {
                 lowInventory()
             } else if (answers === menuItems[2]) {
                 updateInventory()
