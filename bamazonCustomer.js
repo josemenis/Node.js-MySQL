@@ -1,3 +1,4 @@
+const Table = require('cli-table')
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 
@@ -23,24 +24,28 @@ connection.connect(function (err) {
   displayItem()
 });
 
-function displayItem () {[
-  connection.query('SELECT * FROM products', function (err, res) {
-    if (err) throw err
-    // console.log(res)
-            var displayArray = []
-            for (var i = 0; i < res.length; i++) {
-              // pushes items into choicesArray
-              let inventoryItem = [
-                console.log('/////////////////////////////////'),
-                console.log(`Sku # = ${res[i].sku}`),
-                console.log(`Product = ${res[i].product_name}`),
-                console.log(`Price = $ ${res[i].price}`)
-              ];
-              displayArray.push(inventoryItem)
-            }
+function displayItem() {
+  [
+    connection.query('SELECT * FROM products', function (err, res) {
+      if (err) throw err
+      // console.log(res)
+      let table = new Table({
+        head: ['SKU', 'Product', 'Price']
+      })
+      for (var i = 0; i < res.length; i++) {
+        // pushes items into choicesArray
+        let inventoryItem = [
+          sku = res[i].sku,
+          product = res[i].product_name,
+          price = res[i].price
+        ]
+        table.push([`${sku}`, `${product}`, `${price}`])
+      }
+      console.log(table.toString());
       start()
-  })
-]};
+    })
+  ]
+};
 
 function start() {
   // This connection.query will select all products from the db 
