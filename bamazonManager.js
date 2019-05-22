@@ -263,8 +263,8 @@ function addNewProduct() {
                 `INSERT INTO products (sku, product_name, department_name, price, stock_quantity)
                 VALUES (${answers.sku}, '${answers.product}', '${answers.department}', ${answers.price}, ${answers.quantity});`, function(err, results) {
                     if (err) throw err;
-
-                    connection.end()
+                    
+                    productsForSale()
                 }
 
                     //    log 

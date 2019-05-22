@@ -63,13 +63,12 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
   * If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
 
   * If a manager selects `Add to Inventory`, your app should display a prompt that will let the manager "add more" of any item currently in the store.
-![3 functions complete except for new product](images/bamazon_manager.JPG)
+![3 functions complete](images/bamazon_manager.JPG)
 
 
 5/20/19
-Still working on `Add New Product` function.
   * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
-
+![add product function](images/bamazon_addProduct.JPG)
 - - -
 
 * If you finished Challenge #2 and put in all the hours you were willing to spend on this activity, then rest easy! Otherwise continue to the next and final challenge.
