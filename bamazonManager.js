@@ -117,6 +117,7 @@ function lowInventory() {
 };
 //     * Add to Inventory
 function updateInventory() {
+    // function connection asks (What is in here, a callback is a function passed as an argument)
     connection.query('SELECT * FROM products', function (err, res) {
         if (err) throw err
         // console.log(res)
@@ -203,85 +204,75 @@ function updateInventory() {
 };
 //     * Add New Product
 function addNewProduct() {
-    connection.query('SELECT * FROM products', function (err, res) {
-        if (err) throw err
-        // prompt question for new product
-        inquirer
-            .prompt([
-                {
-                    name: 'sku',
-                    type: 'input',
-                    message: 'Enter a SKU:',
-                    // this validate function will ensure that the user can only input a number
-                    validate: function (value) {
-                        if (isNaN(value) === false) {
-                            return true
-                        }
-                        return false
+    // prompt question for new product
+    inquirer
+        .prompt([
+            {
+                name: 'sku',
+                type: 'input',
+                message: 'Enter a SKU:',
+                // this validate function will ensure that the user can only input a number
+                validate: function (value) {
+                    if (isNaN(value) === false) {
+                        return true
                     }
-                },
-                {
-                    name: 'product',
-                    type: 'input',
-                    message: 'What is the product name?'
-                },
-                {
-                    name: 'department',
-                    type: 'input',
-                    message: 'Enter a department for this product.'
-                },
-                {
-                    name: 'price',
-                    type: 'input',
-                    message: 'What is the cost?',
-                    // this validate function will ensure that the user can only input a number
-                    validate: function (value) {
-                        if (isNaN(value) === false) {
-                            return true
-                        }
-                        return false
-                    }
-                },
-                {
-                    name: 'quantity',
-                    type: 'input',
-                    message: 'Enter the quantity for this product.',
-                    // this validate function will ensure that the user can only input a number
-                    validate: function (value) {
-                        if (isNaN(value) === false) {
-                            return true
-                        }
-                        return false
-                    }
+                    return false
                 }
-            ])
-            .then(answers => {
-                // prompt works fine
-                // console.log(answers.sku, answers.product, answers.department, answers.price,answers.quantity)
-                var query = connection.query(
-                'INSERT INTO products SET ?', [
-                    {
-                        sku : answers.sku
-                    },
-                    {
-                        product_name : answers.product
-                    },
-                    {
-                        department_name : answers.department
-                    },
-                    {
-                        price : answers.price
-                    },
-                    {
-                        stock_quantity : answers.quantity
+            },
+            {
+                name: 'product',
+                type: 'input',
+                message: 'What is the product name?'
+            },
+            {
+                name: 'department',
+                type: 'input',
+                message: 'Enter a department for this product.'
+            },
+            {
+                name: 'price',
+                type: 'input',
+                message: 'What is the cost?',
+                // this validate function will ensure that the user can only input a number
+                validate: function (value) {
+                    if (isNaN(value) === false) {
+                        return true
                     }
-                ])
-                console.log(res.affectedRows + ' product inserted!\n')
-                // connection.end()
-            });
-        // then insert into db
-    })
-    console.log(query.sql)
+                    return false
+                }
+            },
+            {
+                name: 'quantity',
+                type: 'input',
+                message: 'Enter the quantity for this product.',
+                // this validate function will ensure that the user can only input a number
+                validate: function (value) {
+                    if (isNaN(value) === false) {
+                        return true
+                    }
+                    return false
+                }
+            }
+        ])
+        .then(answers => {
+            // prompt works fine
+            // console.log(answers.sku, answers.product, answers.department, answers.price,answers.quantity)
+            connection.query(
+                // my error was not including function(err, results) { if (err) throw err;} in the function.
+                // personally got confused bc of the complexity of the
+                `INSERT INTO products (sku, product_name, department_name, price, stock_quantity)
+                VALUES (${answers.sku}, '${answers.product}', '${answers.department}', ${answers.price}, ${answers.quantity});`, function(err, results) {
+                    if (err) throw err;
+
+                    connection.end()
+                }
+
+                    //    log 
+                    // console.log()
+                    
+            ) 
+        });
+    // then insert into db
 };
 
 //   * If a manager selects `View Products for Sale`, the app should list every available item: the item SKUs, names, prices, and quantities.
