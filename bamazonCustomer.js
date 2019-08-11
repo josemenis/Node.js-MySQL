@@ -103,12 +103,12 @@ function start() {
           }
         }
         // console.log(chosenItem.stock_quantity)
-        // console.log(parseInt(answer.units))
+        // console.log(parseFloat(answer.units))
 
         // 7. Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
-        if (chosenItem.stock_quantity > parseInt(answer.units)) {
+        if (chosenItem.stock_quantity > parseFloat(answer.units)) {
           // 
-          var remainingStock = chosenItem.stock_quantity - parseInt(answer.units)
+          var remainingStock = chosenItem.stock_quantity - parseFloat(answer.units)
           // console.log(remainingStock)
           connection.query(
 
@@ -127,7 +127,7 @@ function start() {
             ]
           )
           //    * Once the update goes through, show the customer the total cost of their purchase.
-          var totalPrice = parseInt(answer.units) * chosenItem.price
+          var totalPrice = parseFloat(answer.units) * chosenItem.price
           console.log(`Your total is ${totalPrice}`)
           console.log('Thanks for shopping!')
 
